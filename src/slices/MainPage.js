@@ -4,10 +4,27 @@ const name = "MainPage";
 
 const initialState = {
     isLoading: true,
+    movies: [],
 };
 
-const reducers = {
 
+
+const reducers = {
+    // 3초 로딩
+    loadingState: (state) => {
+        state.isLoading = false;
+    },
+    movieList: () => {},
+    movieListSccs: (data) => {
+        console.log(data)
+        alert("조회성공");
+    },
+    movieListFail: () => {
+        alert("영화가 없습니다.");
+    },
+    movieListError: () => {
+        alert("error");
+    }
 };
 
 const MainPageSlice = createSlice({
@@ -17,4 +34,4 @@ const MainPageSlice = createSlice({
 });
 
 export const MainPageReducers = MainPageSlice.reducer;
-export const MainPageActions = MainPageSlice.actions;
+export const MainPageAction = MainPageSlice.actions;

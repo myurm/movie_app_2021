@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import MainPageActions from '../../slices/MainPage';
+import { MainPageAction } from '../../slices/MainPage';
 
 function MainPage () {
     const dispatch = useDispatch();
@@ -9,14 +9,23 @@ function MainPage () {
     const isLoading = useSelector((state) => state.MainPageReducers.isLoading);
 
     // event
-    const isLoadingCount = () => {
-        setTimeout({isLoading: false}, 3000);
+    function loadingCount() { // 3초 후 로딩 끝!
+        setTimeout(() => {
+            dispatch(MainPageAction.loadingState())
+        }, 1000)
     }
+
     // init
+    useEffect(() => {
+        if(isLoading === true) {
+            loadingCount();
+            dispatch(MainPageAction.movieList());
+        }
+    }, []);
 
     return (
         <>
-            <p>{isLoading ? "Loading ... " : "We are ready"}</p>
+            <p>{isLoading === true ? "Loading . . ." : "무비"}</p>
         </>
     )
 }
